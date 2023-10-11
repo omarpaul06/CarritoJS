@@ -12,6 +12,14 @@ function eventListener(){
         carrito = [];
         limpiarHTML();
     });
+
+    //Muestra los cursos del Local Storage
+    document.addEventListener('DOMContentLoaded', ()=>{
+        carrito = JSON.parse( localStorage.getItem('datos')) || [];
+
+        carritoHTML();
+    })
+    
     listaCarrito.addEventListener('click', eliminarCurso);
 }
 
@@ -53,8 +61,7 @@ function detalleCurso(curso){
     }
 
 
-   
-    console.log(carrito)
+    console.log(carrito);
     carritoHTML();
 }
 
@@ -72,7 +79,16 @@ function carritoHTML(){
             <td><a href="" class="borrar-curso" data-id=${id}>X</a></td>
         `
         listaCarrito.appendChild(row);
-    })
+    });
+
+    sincronizarStorage();
+   
+}
+
+function sincronizarStorage(){
+    const detalleCursoString = JSON.stringify(carrito);
+    localStorage.setItem('datos',detalleCursoString);
+    
 }
 
 function limpiarHTML(){
